@@ -1,6 +1,33 @@
-const GsapScrollTrigger = () => {
-  // TODO: Implement the gsap scroll trigger
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
+import { useRef } from "react";
 
+gsap.registerPlugin(ScrollTrigger)
+
+const GsapScrollTrigger = () => {
+
+  const scrollRef = useRef(); //we added it to the div to warp the boxes to animate them via "ref = {scrollRef}"
+  
+  useGSAP(()=> {
+    const boxes = gsap.utils.toArray(scrollRef.current.children); //this is how you get the children using a react Ref.
+
+    boxes.forEach((box) => {
+      gsap.to(box, {
+        x: 150 * (boxes.indexOf(box) + 5),
+        rotation: 360,
+        borderRadius: '100%',
+        scale: 1.5,
+        scrollTrigger: {
+          trigger: box,
+          start: 'bottom bottom',
+          end: 'top 20%',
+          scrub: true,
+        },
+        ease: 'power1.inOut'
+      })
+    });
+  }, {scope: scrollRef});
   return (
     <main>
       <h1>GsapScrollTrigger</h1>
@@ -51,7 +78,8 @@ const GsapScrollTrigger = () => {
         </svg>
       </div>
 
-      <div className="mt-20 w-full h-screen">
+      {/* in here we are attaching the reference to theses boxes */}
+      <div className="mt-20 w-full h-screen" ref={scrollRef}>
         <div
           id="scroll-pink"
           className="scroll-box w-20 h-20 rounded-lg bg-pink-500"
