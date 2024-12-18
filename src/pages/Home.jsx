@@ -42,6 +42,12 @@ const animations = [
     description: "Learn how to animate text with GSAP.",
     path: "/gsaptext",
   },
+  {
+    title: "GSAP All ",
+    description:
+      "this is done by me in trying to incoperate all the animations i learned together",
+    path: "/gsapall",
+  },
 ];
 
 const Home = () => {
