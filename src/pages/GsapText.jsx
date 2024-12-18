@@ -6,7 +6,8 @@ const GsapText = () => {
 
   useGSAP(() => {
     gsap.to('#text', {
-      ease: 'power1.inOut',
+      ease: "sine.inOut",
+      duration: 1,
       opacity: 1,
       y: 0,
     });
